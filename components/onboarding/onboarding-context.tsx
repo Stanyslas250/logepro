@@ -16,12 +16,18 @@ export const PLAN_ROOM_LIMITS: Record<Plan, number> = {
   business: 200,
 }
 
+export interface Invitation {
+  email: string
+  role: string
+}
+
 interface OnboardingState {
   plan: Plan
   floors: number
   roomsPerFloor: number
   orgName: string
   slug: string
+  invitations: Invitation[]
 }
 
 interface OnboardingContextValue extends OnboardingState {
@@ -29,6 +35,8 @@ interface OnboardingContextValue extends OnboardingState {
   setFloors: (floors: number) => void
   setRoomsPerFloor: (rooms: number) => void
   setOrgName: (name: string) => void
+  addInvitation: (email: string, role: string) => void
+  removeInvitation: (index: number) => void
   totalRooms: number
   maxRooms: number
 }
@@ -59,6 +67,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     roomsPerFloor: 8,
     orgName: "",
     slug: "",
+    invitations: [],
   })
 
   const maxRooms = PLAN_ROOM_LIMITS[state.plan]
@@ -103,6 +112,24 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     []
   )
 
+  const addInvitation = useCallback(
+    (email: string, role: string) =>
+      setState((s) => ({
+        ...s,
+        invitations: [...s.invitations, { email, role }],
+      })),
+    []
+  )
+
+  const removeInvitation = useCallback(
+    (index: number) =>
+      setState((s) => ({
+        ...s,
+        invitations: s.invitations.filter((_, i) => i !== index),
+      })),
+    []
+  )
+
   return (
     <OnboardingContext.Provider
       value={{
@@ -111,6 +138,8 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         setFloors,
         setRoomsPerFloor,
         setOrgName,
+        addInvitation,
+        removeInvitation,
         totalRooms: state.floors * state.roomsPerFloor,
         maxRooms,
       }}

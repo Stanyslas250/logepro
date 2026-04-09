@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth/require-auth"
 import { getTenantInfo } from "@/lib/supabase/tenant"
 
@@ -8,8 +9,13 @@ export default async function TenantLayout({
 }: {
   children: ReactNode
 }) {
-  const user = await requireAuth()
   const tenant = await getTenantInfo()
+
+  if (!tenant) {
+    redirect("/")
+  }
+
+  const user = await requireAuth()
 
   return (
     <div className="flex min-h-screen">

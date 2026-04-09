@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { orgName, slug, plan, floors, roomsPerFloor } = await request.json()
+    const { orgName, slug, plan, floors, roomsPerFloor, invitations } = await request.json()
 
     if (!orgName || !slug) {
       return NextResponse.json(
@@ -137,6 +137,25 @@ export async function POST(request: Request) {
       await tenantClient.rpc("exec_sql", {
         query: `INSERT INTO ${provisionedSchema}.rooms (number, floor, type, capacity, rate, status) VALUES ${values}`,
       })
+    }
+
+    // 5. Store pending invitations
+    if (Array.isArray(invitations) && invitations.length > 0) {
+      const invRows = invitations
+        .filter((inv: { email?: string; role?: string }) => inv.email && inv.role)
+        .map((inv: { email: string; role: string }) => ({
+          organization_id: org.id,
+          email: inv.email.trim().toLowerCase(),
+          role: inv.role,
+          invited_by: user.id,
+        }))
+
+      if (invRows.length > 0) {
+        await admin
+          .schema("platform")
+          .from("invitations")
+          .insert(invRows)
+      }
     }
 
     // Build the tenant URL

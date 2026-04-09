@@ -73,7 +73,7 @@ export default function ForfaitPage() {
         <div className="mb-12 text-center">
           <div className="mb-4 flex items-center justify-between">
             <div />
-            <Stepper currentStep={1} totalSteps={4} />
+            <Stepper currentStep={2} totalSteps={5} />
           </div>
           <h2 className="font-heading text-4xl font-extrabold tracking-tight">
             Créez votre établissement
@@ -161,7 +161,7 @@ export default function ForfaitPage() {
           </div>
           <div className="flex items-center gap-4">
             <Link
-              href="/"
+              href="/onboarding/compte"
               className="rounded-xl px-6 py-3 text-sm font-bold text-muted-foreground transition-colors hover:bg-muted"
             >
               Retour

@@ -29,7 +29,7 @@ export default function StructurePage() {
               gestion précise.
             </p>
           </div>
-          <Stepper currentStep={2} totalSteps={4} />
+          <Stepper currentStep={3} totalSteps={5} />
         </div>
       </header>
 

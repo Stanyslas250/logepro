@@ -1,11 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { useOnboarding } from "@/components/onboarding/onboarding-context"
 import { Stepper } from "@/components/onboarding/stepper"
-import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 
 const planLabels = {
@@ -14,28 +12,37 @@ const planLabels = {
   business: "Business",
 } as const
 
+const ROLE_LABELS: Record<string, string> = {
+  manager: "Manager",
+  receptionniste: "Réceptionniste",
+  menage: "Ménage",
+  comptable: "Comptable",
+}
+
+const ROLE_STYLES: Record<string, string> = {
+  manager: "bg-violet-500/10 text-violet-700 border-violet-500/20",
+  receptionniste: "bg-blue-500/10 text-blue-700 border-blue-500/20",
+  menage: "bg-amber-500/10 text-amber-700 border-amber-500/20",
+  comptable: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20",
+}
+
 export default function RevisionPage() {
-  const { plan, floors, roomsPerFloor, totalRooms, orgName, slug, setOrgName } =
-    useOnboarding()
+  const {
+    plan,
+    floors,
+    roomsPerFloor,
+    totalRooms,
+    orgName,
+    slug,
+    setOrgName,
+    invitations,
+  } = useOnboarding()
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [editingName, setEditingName] = useState(false)
 
-  // Auth state
-  const [authChecked, setAuthChecked] = useState(false)
-  const [userEmail, setUserEmail] = useState<string | null>(null)
-
-  useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUserEmail(user?.email ?? null)
-      setAuthChecked(true)
-    })
-  }, [])
-
-  const isAuthenticated = authChecked && userEmail !== null
-  const canSubmit =
-    isAuthenticated && orgName.trim().length >= 2 && slug.length >= 2
+  const canSubmit = orgName.trim().length >= 2 && slug.length >= 2
 
   async function handleProvision() {
     if (!canSubmit) return
@@ -52,17 +59,11 @@ export default function RevisionPage() {
           plan,
           floors,
           roomsPerFloor,
+          invitations,
         }),
       })
 
       const data = await res.json()
-
-      if (res.status === 401) {
-        setUserEmail(null)
-        setError(null)
-        setLoading(false)
-        return
-      }
 
       if (!res.ok) {
         setError(data.error ?? "Une erreur est survenue")
@@ -89,76 +90,11 @@ export default function RevisionPage() {
               Vérifiez vos choix avant de finaliser la configuration.
             </p>
           </div>
-          <Stepper currentStep={4} totalSteps={4} />
+          <Stepper currentStep={5} totalSteps={5} />
         </div>
       </header>
 
       <section className="mx-auto w-full max-w-5xl flex-1 space-y-6">
-        {/* Auth card — shown if user is not logged in */}
-        {authChecked && !isAuthenticated && (
-          <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-8 shadow-sm">
-            <div className="flex items-start gap-5">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <svg
-                  className="size-6"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-heading text-lg font-bold">
-                  Connectez-vous pour finaliser
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Un compte est nécessaire pour créer votre établissement. Vos
-                  choix (forfait, structure) seront conservés.
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <Link href="/signup?redirect=/onboarding/revision">
-                    <Button className="font-semibold">Créer un compte</Button>
-                  </Link>
-                  <Link href="/login?redirect=/onboarding/revision">
-                    <Button variant="outline" className="font-semibold">
-                      Se connecter
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Authenticated badge */}
-        {isAuthenticated && (
-          <div className="flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-6 py-4">
-            <svg
-              className="size-5 text-emerald-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 11l3 3L22 4" />
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-            </svg>
-            <p className="text-sm font-medium text-emerald-700">
-              Connecté en tant que{" "}
-              <span className="font-bold">{userEmail}</span>
-            </p>
-          </div>
-        )}
-
         {/* Organization Name + Subdomain */}
         <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
@@ -283,6 +219,42 @@ export default function RevisionPage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Team Summary */}
+        <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
+          <div className="flex items-center justify-between">
+            <h3 className="font-heading text-lg font-bold">Équipe</h3>
+            <Link
+              href="/onboarding/acces"
+              className="text-xs font-medium text-primary hover:underline"
+            >
+              Modifier
+            </Link>
+          </div>
+          {invitations.length > 0 ? (
+            <ul className="mt-4 space-y-3">
+              {invitations.map((inv, i) => (
+                <li key={i} className="flex items-center gap-3">
+                  <div className="flex size-8 items-center justify-center rounded-full bg-muted font-heading text-xs font-bold text-muted-foreground">
+                    {inv.email.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="flex-1 text-sm font-medium">{inv.email}</span>
+                  <span className={cn(
+                    "rounded-full border px-2.5 py-0.5 text-xs font-semibold",
+                    ROLE_STYLES[inv.role] ?? "bg-muted text-muted-foreground"
+                  )}>
+                    {ROLE_LABELS[inv.role] ?? inv.role}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-4 text-sm text-muted-foreground">
+              Aucune invitation prévue. Vous pourrez inviter des collaborateurs
+              depuis votre tableau de bord.
+            </p>
+          )}
         </div>
 
         {error && (
