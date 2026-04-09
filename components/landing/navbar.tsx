@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -40,7 +41,9 @@ export function Navbar() {
           <Button variant="ghost" size="sm" className="hidden md:inline-flex">
             Connexion
           </Button>
-          <Button size="sm">Commencer</Button>
+          <Button size="sm" nativeButton={false} render={<Link href="/onboarding/forfait" />}>
+            Commencer
+          </Button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent md:hidden"

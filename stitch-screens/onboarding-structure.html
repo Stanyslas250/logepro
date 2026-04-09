@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Avenue OS - Configuration Structurelle</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#2563eb",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#007d55",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#565e74",
+                    "on-primary-container": "#eeefff",
+                    "inverse-on-surface": "#edf1f5",
+                    "on-primary-fixed": "#00174b",
+                    "inverse-surface": "#2c3134",
+                    "tertiary-fixed": "#6ffbbe",
+                    "outline-variant": "#c3c6d7",
+                    "surface-dim": "#d6dade",
+                    "on-tertiary-fixed": "#002113",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "inverse-primary": "#b4c5ff",
+                    "primary": "#004ac6",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-background": "#171c1f",
+                    "surface-container-low": "#f0f4f8",
+                    "primary-fixed": "#dbe1ff",
+                    "outline": "#737686",
+                    "surface-tint": "#0053db",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "background": "#f6fafe",
+                    "surface-container-high": "#e4e9ed",
+                    "surface-container-highest": "#dfe3e7",
+                    "surface": "#f6fafe",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "tertiary": "#006242",
+                    "on-secondary-container": "#5c647a",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#dae2fd",
+                    "surface-variant": "#dfe3e7",
+                    "surface-container": "#eaeef2",
+                    "surface-bright": "#f6fafe",
+                    "on-surface-variant": "#434655",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#bdffdb",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-surface": "#171c1f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-inner-shadow {
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation (SideNavBar Anchor) -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-slate-50 border-r border-slate-200 p-6 flex flex-col z-20">
+<div class="mb-10">
+<h1 class="text-lg font-bold text-slate-900 font-headline">Avenue OS</h1>
+<div class="mt-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<h2 class="text-sm font-bold text-slate-900">Setup Guide</h2>
+<p class="text-xs text-slate-500">Onboarding Progress</p>
+</div>
+</div>
+</div>
+<nav class="space-y-2 flex-1">
+<div class="flex items-center gap-3 text-slate-500 px-4 py-3 opacity-60">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Plan Selection</span>
+<span class="ml-auto material-symbols-outlined text-tertiary text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center gap-3 text-blue-700 font-bold bg-white rounded-lg shadow-sm px-4 py-3 border-l-4 border-blue-600">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-sm">Hotel Structure</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:text-blue-600 transition-all">
+<span class="material-symbols-outlined">group_add</span>
+<span class="text-sm">User Access</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:text-blue-600 transition-all">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-sm">Review</span>
+</div>
+</nav>
+<button class="mt-auto bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+            Save Progress
+        </button>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 min-h-screen p-10 flex flex-col">
+<!-- Header & Stepper -->
+<header class="max-w-5xl w-full mx-auto mb-12">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h1 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface">Configurez votre structure</h1>
+<p class="text-on-surface-variant mt-2">Définissez l'architecture de votre établissement pour une gestion précise.</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Étape 2 de 4</span>
+<div class="flex gap-1 mt-2">
+<div class="h-1.5 w-8 rounded-full bg-tertiary"></div>
+<div class="h-1.5 w-12 rounded-full bg-primary shadow-sm shadow-primary/30"></div>
+<div class="h-1.5 w-8 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-8 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Bento Grid Configuration Area -->
+<section class="max-w-5xl w-full mx-auto grid grid-cols-12 gap-8 flex-1">
+<!-- Left Column: Controls -->
+<div class="col-span-5 space-y-6">
+<!-- Floors Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-slate-100/50">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-secondary-container rounded-lg text-primary">
+<span class="material-symbols-outlined">layers</span>
+</div>
+<h3 class="font-headline font-bold text-lg">Étages</h3>
+</div>
+<span class="text-xs font-bold px-2 py-1 bg-surface-container-high rounded uppercase tracking-tighter">Total: 4</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container rounded-2xl p-2">
+<button class="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-primary hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-3xl font-bold font-headline">4</span>
+<button class="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-primary hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant mt-4 leading-relaxed">
+                        Chaque étage peut contenir une configuration différente de chambres.
+                    </p>
+</div>
+<!-- Rooms Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-slate-100/50">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-tertiary-container/10 rounded-lg text-tertiary">
+<span class="material-symbols-outlined">door_front</span>
+</div>
+<h3 class="font-headline font-bold text-lg">Chambres par étage</h3>
+</div>
+<span class="text-xs font-bold px-2 py-1 bg-surface-container-high rounded uppercase tracking-tighter">Moyenne: 8</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container rounded-2xl p-2">
+<button class="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-tertiary hover:bg-tertiary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-3xl font-bold font-headline">8</span>
+<button class="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-tertiary hover:bg-tertiary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
+<span class="text-sm font-medium text-on-surface-variant tracking-tight">Capacité Totale Estimeé</span>
+<span class="text-xl font-bold text-primary font-headline">32 unités</span>
+</div>
+</div>
+<!-- Legend Card -->
+<div class="bg-primary/5 p-6 rounded-xl flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">info</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-snug">
+                        Vous pourrez personnaliser chaque numéro de chambre individuellement dans l'étape suivante.
+                    </p>
+</div>
+</div>
+<!-- Right Column: Visualizer (High-End Asymmetric Layout) -->
+<div class="col-span-7 bg-surface-container rounded-3xl p-8 relative overflow-hidden flex flex-col border border-white">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<div class="flex items-center justify-between mb-10 relative z-10">
+<h3 class="font-headline font-bold text-slate-800 uppercase tracking-widest text-xs">Aperçu Architectural</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[10px] font-bold text-primary shadow-sm border border-white">BÂTIMENT A</span>
+<span class="px-3 py-1 bg-white/40 backdrop-blur-sm rounded-full text-[10px] font-bold text-slate-500 border border-white">VUE 2D</span>
+</div>
+</div>
+<!-- Visual Building Grid -->
+<div class="flex-1 flex items-end justify-center gap-4 relative z-10">
+<!-- Floor Blocks (Repeated via flex) -->
+<div class="w-full max-w-md space-y-3">
+<!-- Floor 4 -->
+<div class="group relative">
+<div class="flex gap-2">
+<div class="h-16 flex-1 bg-white rounded-lg shadow-sm flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+<div class="grid grid-cols-4 gap-1 w-full px-4">
+<div class="h-2 rounded-full bg-primary-fixed"></div>
+<div class="h-2 rounded-full bg-primary-fixed"></div>
+<div class="h-2 rounded-full bg-primary-fixed"></div>
+<div class="h-2 rounded-full bg-primary-fixed-dim"></div>
+</div>
+</div>
+<div class="h-16 w-16 bg-white/60 rounded-lg flex items-center justify-center text-[10px] font-bold text-slate-400">4F</div>
+</div>
+</div>
+<!-- Floor 3 -->
+<div class="group relative">
+<div class="flex gap-2">
+<div class="h-16 flex-1 bg-white rounded-lg shadow-sm flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+<div class="grid grid-cols-4 gap-1 w-full px-4">
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+</div>
+</div>
+<div class="h-16 w-16 bg-white/60 rounded-lg flex items-center justify-center text-[10px] font-bold text-slate-400">3F</div>
+</div>
+</div>
+<!-- Floor 2 -->
+<div class="group relative">
+<div class="flex gap-2">
+<div class="h-16 flex-1 bg-white rounded-lg shadow-sm flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+<div class="grid grid-cols-4 gap-1 w-full px-4">
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+<div class="h-2 rounded-full bg-primary"></div>
+</div>
+</div>
+<div class="h-16 w-16 bg-white/60 rounded-lg flex items-center justify-center text-[10px] font-bold text-slate-400">2F</div>
+</div>
+</div>
+<!-- Floor 1 / Ground -->
+<div class="group relative">
+<div class="flex gap-2">
+<div class="h-20 flex-1 bg-primary text-white rounded-lg shadow-lg flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-xl">person_4</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Reception &amp; Lobby</span>
+</div>
+</div>
+<div class="h-20 w-16 bg-white/80 rounded-lg flex items-center justify-center text-[10px] font-bold text-primary">0F</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-200/50 flex justify-between items-center relative z-10">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="professional architect reviewing floor plans with focused expression in bright office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbpwSatfOwdz8GnqKo2LT3J47-QR5-WpyZ92o8sMaVplsmeQ047di3TF55bjdQWjae0V5MUmX4I1zjqrzBkXLrHPBwgQ_f5UTwUlFjTrzNtkvhlVVu42abOA5FA-Nk5UeJztGUOM6qiYXsLSjKQx4FYFkrI2n6vWSXasjXPDCGCQuu0_aNyCy4Hf0T9eiyp7Xefp6w-qThEGNr8ikJeUHce6V6Nqoxuf9dTcL7UgIKyuc9oooovxFREitXTUkmBQ0hTZynWAKpx0I"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="smiling hotel manager in suit standing in a modern lobby with golden hour lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNBplbxTQSzy59t5g4y0DJcBQG5-H-X2Aws0x4onYAZyznAErLdEgOwrYT6hisKrpeGqCuQcSicvrvk8yfotyWSg2_fsdTdeW2Q7zxId6kwr_996jrcYsMHs-EM0gpxsGvsAJP6NtnObWFtb4cVwnZZa5CdSFIX5GwfNFGxF02BRVL7-NGnrG_PQNsqWOntCaOeohYzPjcOJvGx6p6cywI6WxWtctY9EMfsw8_AQAGnprS_eC9jkxEiYLbhXRNULZBkBXeIyFsXxs"/>
+</div>
+<p class="text-[11px] text-on-surface-variant font-medium">Validé par l'algorithme d'optimisation Avenue OS</p>
+</div>
+</div>
+</section>
+<!-- Fixed Footer Actions -->
+<footer class="mt-auto py-10 max-w-5xl w-full mx-auto flex items-center justify-between border-t border-slate-100">
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl text-slate-500 font-semibold hover:bg-slate-100 transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+<span>Retour</span>
+</button>
+<div class="flex items-center gap-4">
+<button class="px-6 py-3 rounded-xl text-slate-500 font-medium hover:text-slate-700">Passer pour le moment</button>
+<button class="flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-white font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95">
+<span>Finaliser la structure</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Hidden on setup screens per suppression rule, but here to show adherence) -->
+</body></html>
