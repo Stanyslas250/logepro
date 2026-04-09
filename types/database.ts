@@ -44,6 +44,12 @@ export interface Invitation {
   created_at: string
 }
 
+export interface PlatformAdmin {
+  id: string
+  user_id: string
+  created_at: string
+}
+
 // ---------------------------------------------------------------------------
 // Tenant schema types (duplicated per tenant schema)
 // ---------------------------------------------------------------------------

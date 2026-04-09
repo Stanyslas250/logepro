@@ -38,6 +38,7 @@ function extractTenantSlug(request: NextRequest): string | null {
 function isPublicPath(pathname: string): boolean {
   if (PUBLIC_PATHS.includes(pathname)) return true
   if (pathname.startsWith(ONBOARDING_PREFIX)) return true
+  if (pathname.startsWith("/admin")) return true
   if (pathname.startsWith("/api/setup")) return true
   if (pathname.startsWith("/api/webhooks")) return true
   return false
