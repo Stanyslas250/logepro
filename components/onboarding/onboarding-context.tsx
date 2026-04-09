@@ -20,12 +20,15 @@ interface OnboardingState {
   plan: Plan
   floors: number
   roomsPerFloor: number
+  orgName: string
+  slug: string
 }
 
 interface OnboardingContextValue extends OnboardingState {
   setPlan: (plan: Plan) => void
   setFloors: (floors: number) => void
   setRoomsPerFloor: (rooms: number) => void
+  setOrgName: (name: string) => void
   totalRooms: number
   maxRooms: number
 }
@@ -40,11 +43,22 @@ function clampStructure(floors: number, roomsPerFloor: number, max: number) {
   return { floors: f, roomsPerFloor: clampedR }
 }
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
 export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<OnboardingState>({
     plan: "pro",
     floors: 4,
     roomsPerFloor: 8,
+    orgName: "",
+    slug: "",
   })
 
   const maxRooms = PLAN_ROOM_LIMITS[state.plan]
@@ -58,8 +72,14 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
           s.roomsPerFloor,
           limit
         )
-        return { plan, floors, roomsPerFloor }
+        return { ...s, plan, floors, roomsPerFloor }
       }),
+    []
+  )
+
+  const setOrgName = useCallback(
+    (orgName: string) =>
+      setState((s) => ({ ...s, orgName, slug: slugify(orgName) })),
     []
   )
 
@@ -90,6 +110,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         setPlan,
         setFloors,
         setRoomsPerFloor,
+        setOrgName,
         totalRooms: state.floors * state.roomsPerFloor,
         maxRooms,
       }}

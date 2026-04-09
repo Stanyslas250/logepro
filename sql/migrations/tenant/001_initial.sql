@@ -1,0 +1,9 @@
+-- Migration 001: Initial tenant tables
+-- This is the baseline migration. All tables are created by provision_tenant().
+-- This file exists for reference and versioning purposes.
+--
+-- Tables created:
+--   rooms, guests, reservations, payments, invoices,
+--   stock_items, stock_movements, employees, tasks
+--
+-- No action needed — already applied at provisioning time.

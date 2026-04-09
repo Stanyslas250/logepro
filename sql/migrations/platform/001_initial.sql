@@ -1,0 +1,4 @@
+-- Migration 001: Initial platform schema
+-- Creates organizations, memberships, invitations tables.
+-- See sql/platform-schema.sql for the full DDL.
+-- This file exists for reference and versioning purposes.

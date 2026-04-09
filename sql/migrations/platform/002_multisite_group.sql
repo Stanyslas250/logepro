@@ -1,0 +1,22 @@
+-- Migration 002: Multi-site support
+-- Adds group_id to organizations (already in initial schema).
+-- This file documents the intent for Phase 4 multi-site feature.
+--
+-- Organizations with a group_id reference a "parent" organization.
+-- The owner of the parent has memberships across all child orgs.
+--
+-- group_id is already part of platform.organizations (see platform-schema.sql).
+-- This migration is a no-op for new installs; included for documentation.
+
+-- Future: create a view for consolidated reporting across a group
+-- CREATE VIEW platform.group_organizations AS
+-- SELECT
+--     parent.id AS group_id,
+--     parent.name AS group_name,
+--     child.id AS site_id,
+--     child.name AS site_name,
+--     child.slug AS site_slug,
+--     child.schema_name
+-- FROM platform.organizations parent
+-- JOIN platform.organizations child ON child.group_id = parent.id
+-- WHERE parent.group_id IS NULL;

@@ -62,7 +62,9 @@ const planLabels: Record<Plan, string> = {
 }
 
 export default function ForfaitPage() {
-  const { plan, setPlan } = useOnboarding()
+  const { plan, setPlan, orgName, slug, setOrgName } = useOnboarding()
+
+  const canContinue = orgName.trim().length >= 2
 
   return (
     <div className="flex flex-1 flex-col p-12">
@@ -74,13 +76,34 @@ export default function ForfaitPage() {
             <Stepper currentStep={1} totalSteps={4} />
           </div>
           <h2 className="font-heading text-4xl font-extrabold tracking-tight">
-            Choisissez le forfait adapté à votre excellence
+            Créez votre établissement
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Sélectionnez un abonnement adapté à la complexité opérationnelle de
-            votre hôtel. Passez à un forfait supérieur ou inférieur à tout
-            moment.
+            Nommez votre établissement et choisissez le forfait adapté à votre
+            activité.
           </p>
+        </div>
+
+        {/* Organization Name */}
+        <div className="mx-auto mb-10 max-w-2xl rounded-2xl border border-border bg-card p-8 shadow-sm">
+          <h3 className="font-heading mb-4 text-lg font-bold">
+            Nom de l&apos;établissement
+          </h3>
+          <input
+            type="text"
+            value={orgName}
+            onChange={(e) => setOrgName(e.target.value)}
+            placeholder="Ex : Hôtel Le Marlin"
+            className="h-11 w-full rounded-lg border border-input bg-background px-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20"
+          />
+          {slug && (
+            <p className="mt-3 text-sm text-muted-foreground">
+              Votre sous-domaine :{" "}
+              <span className="font-mono font-medium text-primary">
+                {slug}.logepro.app
+              </span>
+            </p>
+          )}
         </div>
 
         {/* Pricing Cards */}
@@ -115,10 +138,21 @@ export default function ForfaitPage() {
             </div>
             <div>
               <p className="text-sm font-semibold">
-                Forfait :{" "}
-                <span className="font-bold text-primary">
-                  {planLabels[plan]}
-                </span>
+                {orgName ? (
+                  <>
+                    {orgName} &mdash;{" "}
+                    <span className="font-bold text-primary">
+                      {planLabels[plan]}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Forfait :{" "}
+                    <span className="font-bold text-primary">
+                      {planLabels[plan]}
+                    </span>
+                  </>
+                )}
               </p>
               <p className="text-xs text-muted-foreground">
                 Facturation mensuelle · Inclut tous les modules de base
@@ -132,24 +166,30 @@ export default function ForfaitPage() {
             >
               Retour
             </Link>
-            <Link
-              href="/onboarding/structure"
-              className="flex items-center gap-2 rounded-xl bg-primary px-10 py-3 font-bold text-primary-foreground shadow-lg transition-all hover:shadow-primary/30 active:scale-95"
-            >
-              Continuer vers la structure
-              <svg
-                className="size-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {canContinue ? (
+              <Link
+                href="/onboarding/structure"
+                className="flex items-center gap-2 rounded-xl bg-primary px-10 py-3 font-bold text-primary-foreground shadow-lg transition-all hover:shadow-primary/30 active:scale-95"
               >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </Link>
+                Continuer vers la structure
+                <svg
+                  className="size-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </Link>
+            ) : (
+              <span className="flex cursor-not-allowed items-center gap-2 rounded-xl bg-primary/50 px-10 py-3 font-bold text-primary-foreground">
+                Nommez votre établissement
+              </span>
+            )}
           </div>
         </div>
       </div>
