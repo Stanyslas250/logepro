@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
-import Link from "next/link"
 import { redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth/require-auth"
 import { getTenantInfo } from "@/lib/supabase/tenant"
+import { SidebarNav } from "@/components/layout/sidebar-nav"
 
 export default async function TenantLayout({
   children,
@@ -17,78 +17,39 @@ export default async function TenantLayout({
 
   const user = await requireAuth()
 
+  const tenantName = tenant.tenantSchema
+    .replace("tenant_", "")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-border bg-sidebar">
-        {/* Logo */}
-        <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-6">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <svg
-              className="size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2 2 7l10 5 10-5-10-5Z" />
-              <path d="m2 17 10 5 10-5" />
-              <path d="m2 12 10 5 10-5" />
-            </svg>
-          </div>
-          <span className="font-heading text-base font-bold text-sidebar-foreground">
+      <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col bg-sidebar py-6">
+        {/* Branding */}
+        <div className="mb-8 px-6">
+          <h1 className="font-heading text-xl font-bold tracking-tighter text-primary">
             LogePro
-          </span>
+          </h1>
+          <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+            {tenantName}
+          </p>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 space-y-1 px-3 py-4">
-          <NavLink href="/dashboard" label="Tableau de bord">
-            <svg
-              className="size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-            </svg>
-          </NavLink>
-          <NavLink href="/rooms" label="Chambres">
-            <svg
-              className="size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14" />
-              <path d="M2 20h20" />
-              <path d="M14 12v.01" />
-            </svg>
-          </NavLink>
-        </nav>
+        <SidebarNav />
 
         {/* User */}
-        <div className="border-t border-sidebar-border p-4">
+        <div className="mt-4 border-t border-border px-4 pt-4">
           <div className="flex items-center gap-3">
-            <div className="flex size-8 items-center justify-center rounded-full bg-sidebar-accent text-sm font-bold text-sidebar-accent-foreground">
+            <div className="flex size-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
               {user.email.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-sidebar-foreground">
-                {user.email}
+              <p className="truncate text-xs font-bold text-foreground">
+                {user.email.split("@")[0]}
               </p>
-              <p className="text-xs capitalize text-muted-foreground">
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                 {user.role ?? "membre"}
               </p>
             </div>
@@ -97,38 +58,31 @@ export default async function TenantLayout({
       </aside>
 
       {/* Main content */}
-      <main className="ml-64 flex-1">
+      <main className="ml-64 flex-1 min-h-screen flex flex-col">
         {/* Top bar */}
-        <header className="sticky top-0 z-20 flex h-16 items-center border-b border-border bg-background/80 px-8 backdrop-blur-sm">
-          {tenant && (
-            <p className="text-sm font-medium text-muted-foreground">
-              {tenant.tenantSchema.replace("tenant_", "").replace(/_/g, " ")}
-            </p>
-          )}
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-background/80 px-8 backdrop-blur-xl">
+          <div className="flex items-center flex-1 max-w-xl">
+            <div className="relative w-full">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-[18px]">
+                search
+              </span>
+              <input
+                className="w-full rounded-full border-none bg-muted py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
+                placeholder="Rechercher une réservation, un nom..."
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="relative text-muted-foreground hover:text-primary transition-colors">
+              <span className="material-symbols-outlined">notifications</span>
+              <span className="absolute right-0 top-0 h-2 w-2 rounded-full bg-destructive" />
+            </button>
+          </div>
         </header>
 
-        <div className="p-8">{children}</div>
+        <div className="flex-1 p-8">{children}</div>
       </main>
     </div>
-  )
-}
-
-function NavLink({
-  href,
-  label,
-  children,
-}: {
-  href: string
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <Link
-      href={href}
-      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-    >
-      {children}
-      {label}
-    </Link>
   )
 }
