@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LogePro | La plateforme hôtelière intelligente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-tint": "#0053db",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary-fixed": "#002113",
+                        "surface-container-highest": "#dfe3e7",
+                        "surface-container-high": "#e4e9ed",
+                        "secondary-fixed": "#dae2fd",
+                        "inverse-surface": "#2c3134",
+                        "tertiary-fixed": "#6ffbbe",
+                        "tertiary-container": "#007d55",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-surface-variant": "#434655",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-error-container": "#93000a",
+                        "primary": "#004ac6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-secondary-fixed": "#131b2e",
+                        "background": "#f6fafe",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface": "#171c1f",
+                        "error": "#ba1a1a",
+                        "surface": "#f6fafe",
+                        "on-tertiary-container": "#bdffdb",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#dae2fd",
+                        "tertiary": "#006242",
+                        "on-primary-container": "#eeefff",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-primary": "#ffffff",
+                        "on-background": "#171c1f",
+                        "surface-container-low": "#f0f4f8",
+                        "surface-dim": "#d6dade",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#eaeef2",
+                        "surface-bright": "#f6fafe",
+                        "surface-variant": "#dfe3e7",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-container": "#5c647a",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "secondary": "#565e74"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+<!-- Barre de navigation -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">LogePro</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-700 dark:text-blue-300 font-bold border-b-2 border-blue-600 font-manrope tracking-tight text-sm font-semibold transition-colors duration-300 ease-in-out" href="#">Plateforme</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 font-manrope tracking-tight text-sm font-semibold transition-colors duration-300 ease-in-out" href="#">Fonctionnalités</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 font-manrope tracking-tight text-sm font-semibold transition-colors duration-300 ease-in-out" href="#">Solutions</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 font-manrope tracking-tight text-sm font-semibold transition-colors duration-300 ease-in-out" href="#">Tarifs</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block text-slate-600 dark:text-slate-400 font-manrope tracking-tight text-sm font-semibold scale-95 active:opacity-80 transition-transform">Connexion</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-manrope tracking-tight text-sm font-semibold scale-95 active:opacity-80 transition-transform bg-gradient-to-r from-primary to-primary-container shadow-lg shadow-primary/20">Commencer</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Section Héro -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden bg-surface">
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                        Le nouveau standard hôtelier
+                    </div>
+<h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight text-on-surface">
+                        Élevez l'hospitalité avec une <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Efficacité Invisible</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-lg leading-relaxed font-body">
+                        LogePro est la plateforme de gestion hôtelière la plus intuitive, conçue pour les établissements qui privilégient l'expérience client plutôt que les contraintes opérationnelles.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-3 scale-95 active:opacity-80 transition-all bg-gradient-to-br from-primary to-primary-container shadow-xl shadow-primary/30">
+                            Demander une démo
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-surface-container-high text-on-surface rounded-xl font-bold scale-95 active:opacity-80 transition-all">
+                            Voir la vitrine
+                        </button>
+</div>
+</div>
+<div class="relative lg:h-[600px] flex items-center">
+<div class="w-full aspect-square md:aspect-auto h-full rounded-[2.5rem] overflow-hidden shadow-2xl relative">
+<img class="w-full h-full object-cover" data-alt="hall d'un hôtel de luxe avec éclairage ambiant doux, hauts plafonds, sols en marbre et mobilier en velours dans un style éditorial contemporain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnb30Kia3gdaZzaW-2HQWQaqPzGuMkMOXEyvXhoKOvqEaQeM8E2Rv16JMF2axFnkt0ppcqcdY3pfG0lPUax8H_ux95hWpO0CdhzUhQbWaG_vocGTqHdAg2oPDXPt0jmlRYIlqu8zAMdvb7YnfvsWYRK0bsrEvW5bC1o-k1sIU6vSFqnu4B82iUlWQHKA3D2YZ8K49s3EmjqxeaYMVx-sLEAtWmMb1wnjA1G2C6mCYQYaZUrc-DuS_ZGTWhdKMz1zm1LpwUeUL9rq0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+</div>
+<!-- Carte flottante -->
+<div class="absolute -bottom-6 -left-6 md:-left-12 bg-white/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border-white/20 max-w-[280px]">
+<div class="flex items-center gap-4 mb-4">
+<div class="p-3 bg-tertiary-container rounded-lg">
+<span class="material-symbols-outlined text-white">check_circle</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-label uppercase tracking-widest">Occupation</p>
+<p class="text-2xl font-extrabold text-on-surface">98,4%</p>
+</div>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[98%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Preuve sociale -->
+<section class="py-20 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-6">
+<p class="text-center text-on-surface-variant font-label tracking-[0.2em] uppercase text-xs mb-12">Approuvé par les meilleurs établissements</p>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
+<span class="text-2xl font-black tracking-tighter text-slate-800">HÔTEL IVOIRE</span>
+<span class="text-2xl font-black tracking-tighter text-slate-800">LE MERIDIEN</span>
+<span class="text-2xl font-black tracking-tighter text-slate-800">PALM ROYALE</span>
+<span class="text-2xl font-black tracking-tighter text-slate-800">AZUR RÉSIDENCE</span>
+</div>
+</div>
+</section>
+<!-- Grille de fonctionnalités -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-20 text-center">
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-6 tracking-tight">La Suite de Gestion Moderne</h2>
+<p class="text-on-surface-variant text-lg max-w-2xl mx-auto">Des outils de précision pour une hospitalité sans friction.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Fonctionnalité 1 : Tableau de bord unifié -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-[2rem] bg-surface-container-lowest transition-all hover:shadow-2xl">
+<div class="p-10 md:w-1/2">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">dashboard</span>
+<h3 class="text-3xl font-bold mb-4 tracking-tight">Tableau de bord unifié</h3>
+<p class="text-on-surface-variant leading-relaxed">Un centre névralgique pour votre établissement. Chaque interaction, demande et indicateur sont rassemblés dans une vue unique et claire.</p>
+</div>
+<div class="md:absolute right-0 bottom-0 top-0 md:w-1/2 p-6">
+<div class="h-full rounded-2xl overflow-hidden bg-surface-container shadow-inner border border-outline-variant/10">
+<img class="w-full h-full object-cover" data-alt="capture d'écran d'un tableau de bord professionnel avec graphiques épurés, accents bleus et interface de gestion minimaliste" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUxplFpw0U2aGRcadKWA7dc_FZcQQZ9xdpR4zrpLf_F9bDHfMEFXaxTXoEvYJAQiZxaf5NBqwbDVVp8Z60feQi3Xi6jUDHIB9jhsICI-TtlMiJ3Ypp1hkdsJTTXQ8EHuhKY-B1u-35IYpsM7DEoXYV6fIQKBd5293YatMhqEZlRXS4z8kvQ4wNXFsRQSWDE9doIh_jlmIp-90DwqQSL0HJtMez16uFXTtS8zA6Ml8S4z3eYso2C5qzL_ZGMoopNAt3FUBbyJRAjtM"/>
+</div>
+</div>
+</div>
+<!-- Fonctionnalité 2 : Calendrier de réservation -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-[2rem] bg-surface-container-lowest p-10 transition-all hover:shadow-2xl">
+<div class="h-full flex flex-col">
+<div class="flex-grow">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">calendar_month</span>
+<h3 class="text-2xl font-bold mb-4 tracking-tight">Calendrier de réservation dynamique</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">Visualisez les arrivées et les départs grâce à notre timeline continue. Code couleur par statut pour une clarté opérationnelle instantanée.</p>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-primary">
+<span>Occupation en direct</span>
+<span>+12% vs AN</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Fonctionnalité 3 : Analyse des clients -->
+<div class="md:col-span-5 group relative overflow-hidden rounded-[2rem] bg-surface-container-lowest transition-all hover:shadow-2xl">
+<div class="p-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">query_stats</span>
+<h3 class="text-2xl font-bold mb-4 tracking-tight">Analyses approfondies des clients</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">Anticipez les besoins avant qu'ils ne se manifestent. Des profils clients détaillés synthétisent les comportements passés, les préférences et les retours en actions concrètes.</p>
+</div>
+<div class="px-6 pb-6">
+<div class="rounded-xl bg-surface-container overflow-hidden h-48">
+<img class="w-full h-full object-cover" data-alt="gros plan d'une tablette haut de gamme affichant des données de profil client détaillées avec une typographie élégante et des éléments d'interface bleus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1dpku0SNizV5JYDznKzZ5NyQfHLEJn4YpDqfGM5eFYajEx2PlgS9JftewQodLw1Wu8VCOkVTTo6UIrrqF6hNYRudcWEdGfqkw0M0LuCrQgXJJsLyCfSO9Si1H8uyYzUeC0_g1lJXb8gdwQndEvGIrEUQdBj2UYeLPxLc16aNtf0BuUMiB2DLb2jB-Om976dH0hB6L-9ztuH-8mZc_wNyktNoe9iMzkeieRzsnGrSfiTeRa7IB7m7Wn9uOxg768OO7TVFYo_OHQ68"/>
+</div>
+</div>
+</div>
+<!-- Citation avec image -->
+<div class="md:col-span-7 relative overflow-hidden rounded-[2rem] bg-primary group">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay group-hover:scale-105 transition-transform duration-1000" data-alt="terrasse sur le toit d'un hôtel de luxe avec piscine à débordement au crépuscule, éclairage cinématographique et cocktails élégants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl07hSer5h540zzRTwP5jd73AxX3toJumOm4xZG4vpqUoHHf0ZjM3W8ISP2YRKA9ylpI7IsfqaCO5DIrRjdg0M6JihCTpavjyJ7nUeV-BAu4jzqE9jPOQQZavS8U104zsaPLdRICxMdLwm93EZYtoVn2NG7V7T6Uo9S0WoWNuTC_PhaQ6hDANBYbvAAOmqemHBRUsuF1nFtMSwGQlyzPp67lZZaSTnIjYK7gXwuNthPePip56YbBMFznTGr8aCQxjjgzShoxjjXeY"/>
+<div class="relative z-10 p-12 h-full flex flex-col justify-end text-on-primary">
+<p class="text-3xl font-headline font-bold italic leading-tight mb-8">« LogePro n'a pas simplement remplacé notre logiciel ; il a recentré l'attention de mon équipe sur les clients. »</p>
+<div>
+<p class="font-bold text-lg">Amadou Diallo</p>
+<p class="opacity-80 text-sm tracking-widest uppercase">Directeur, Azur Résidence Abidjan</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Tarifs -->
+<section class="py-32 bg-surface-container-low" id="tarifs">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-20 text-center">
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-6 tracking-tight">Des tarifs adaptés à <span class="text-primary italic">votre établissement</span></h2>
+<p class="text-on-surface-variant text-lg max-w-2xl mx-auto">Choisissez le plan qui correspond à la taille et aux besoins de votre hôtel. Sans engagement, évolutif à tout moment.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Plan Starter -->
+<div class="relative overflow-hidden rounded-[2rem] bg-surface-container-lowest p-10 transition-all hover:shadow-2xl border border-outline-variant/20">
+<div class="mb-8">
+<h3 class="text-2xl font-bold mb-2 tracking-tight">Starter</h3>
+<p class="text-on-surface-variant text-sm">Apparts, motels (≤ 10 chambres)</p>
+</div>
+<div class="mb-8">
+<span class="text-4xl font-extrabold text-on-surface">25 000</span>
+<span class="text-on-surface-variant text-lg ml-1">FCFA</span>
+<span class="text-on-surface-variant text-sm">/mois</span>
+</div>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Gestion des réservations</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Caisse et facturation</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Tableau de bord simplifié</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-surface-container-high text-on-surface rounded-xl font-bold scale-95 active:opacity-80 transition-all">
+                            Choisir Starter
+                        </button>
+</div>
+<!-- Plan Pro -->
+<div class="relative overflow-hidden rounded-[2rem] bg-surface-container-lowest p-10 transition-all hover:shadow-2xl border-2 border-primary shadow-xl">
+<div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-primary text-on-primary text-xs font-bold uppercase tracking-widest">Populaire</div>
+<div class="mb-8">
+<h3 class="text-2xl font-bold mb-2 tracking-tight">Pro</h3>
+<p class="text-on-surface-variant text-sm">Hôtels locaux (10–50 chambres)</p>
+</div>
+<div class="mb-8">
+<span class="text-4xl font-extrabold text-on-surface">55 000</span>
+<span class="text-on-surface-variant text-lg ml-1">FCFA</span>
+<span class="text-on-surface-variant text-sm">/mois</span>
+</div>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Tout le plan Starter</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Gestion des stocks</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Gestion RH et personnel</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Rapports et analyses avancés</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold scale-95 active:opacity-80 transition-all bg-gradient-to-r from-primary to-primary-container shadow-lg shadow-primary/20">
+                            Choisir Pro
+                        </button>
+</div>
+<!-- Plan Business -->
+<div class="relative overflow-hidden rounded-[2rem] bg-surface-container-lowest p-10 transition-all hover:shadow-2xl border border-outline-variant/20">
+<div class="mb-8">
+<h3 class="text-2xl font-bold mb-2 tracking-tight">Business</h3>
+<p class="text-on-surface-variant text-sm">Hôtels 50+ chambres, multi-sites</p>
+</div>
+<div class="mb-8">
+<span class="text-4xl font-extrabold text-on-surface">100 000</span>
+<span class="text-on-surface-variant text-lg ml-1">FCFA</span>
+<span class="text-on-surface-variant text-sm">/mois</span>
+</div>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Tout le plan Pro</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Gestion multi-sites</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Accès API</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-xl">check_circle</span>
+<span class="text-on-surface-variant text-sm">Support prioritaire dédié</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-surface-container-high text-on-surface rounded-xl font-bold scale-95 active:opacity-80 transition-all">
+                            Choisir Business
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section CTA finale -->
+<section class="py-32 bg-surface overflow-hidden relative">
+<div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+<h2 class="text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-8 leading-[1.1]">
+                    Transformez l'expérience <br/><span class="text-primary italic">de vos clients</span> dès aujourd'hui.
+                </h2>
+<p class="text-xl text-on-surface-variant mb-12 max-w-2xl mx-auto">
+                    Rejoignez les établissements qui redéfinissent l'avenir de l'hôtellerie en Afrique et dans le monde.
+                </p>
+<div class="flex justify-center gap-6">
+<button class="px-12 py-5 bg-primary text-on-primary rounded-xl font-bold text-lg shadow-2xl shadow-primary/40 hover:-translate-y-1 transition-all bg-gradient-to-br from-primary to-primary-container">
+                        Demander une démo privée
+                    </button>
+</div>
+</div>
+<div class="absolute -bottom-48 -right-48 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute -top-48 -left-48 w-[600px] h-[600px] bg-tertiary-container/5 rounded-full blur-[100px]"></div>
+</section>
+</main>
+<!-- Pied de page -->
+<footer class="w-full border-t border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950">
+<div class="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-lg font-bold text-slate-900 dark:text-white">LogePro</div>
+<p class="font-inter text-xs tracking-wide uppercase font-medium text-slate-500 dark:text-slate-500">
+                    © 2026 LogePro. La plateforme hôtelière intelligente.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-inter text-xs tracking-wide uppercase font-medium text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all opacity-100 hover:opacity-80" href="#">Politique de confidentialité</a>
+<a class="font-inter text-xs tracking-wide uppercase font-medium text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all opacity-100 hover:opacity-80" href="#">Conditions d'utilisation</a>
+<a class="font-inter text-xs tracking-wide uppercase font-medium text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all opacity-100 hover:opacity-80" href="#">Paramètres des cookies</a>
+<a class="font-inter text-xs tracking-wide uppercase font-medium text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all opacity-100 hover:opacity-80" href="#">Contacter le support</a>
+</div>
+</div>
+</footer>
+</body></html>
