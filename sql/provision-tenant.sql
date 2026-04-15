@@ -134,6 +134,29 @@ BEGIN
             created_at      TIMESTAMPTZ DEFAULT now()
         )', v_schema, v_schema, v_schema);
 
+    -- Grant access to Supabase roles so PostgREST / supabase-js (db.schema) can query the tenant
+    EXECUTE format('GRANT USAGE ON SCHEMA %I TO authenticator, anon, authenticated, service_role', v_schema);
+    EXECUTE format('GRANT ALL ON ALL TABLES IN SCHEMA %I TO authenticator, anon, authenticated, service_role', v_schema);
+    EXECUTE format('GRANT ALL ON ALL SEQUENCES IN SCHEMA %I TO authenticator, anon, authenticated, service_role', v_schema);
+    EXECUTE format('GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA %I TO authenticator, anon, authenticated, service_role', v_schema);
+
+    -- Objects created later in this schema (migrations) get the same privileges when owned by postgres
+    EXECUTE format(
+      'ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA %I GRANT ALL ON TABLES TO authenticator, anon, authenticated, service_role',
+      v_schema
+    );
+    EXECUTE format(
+      'ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA %I GRANT ALL ON SEQUENCES TO authenticator, anon, authenticated, service_role',
+      v_schema
+    );
+    EXECUTE format(
+      'ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA %I GRANT EXECUTE ON FUNCTIONS TO authenticator, anon, authenticated, service_role',
+      v_schema
+    );
+
+    -- Reload PostgREST schema cache
+    PERFORM pg_notify('pgrst', 'reload schema');
+
     -- Update org record
     UPDATE platform.organizations
     SET schema_name = v_schema, status = 'active', updated_at = now()

@@ -78,17 +78,28 @@ export async function proxy(request: NextRequest) {
     )
   }
 
-  // Inject tenant headers for downstream Server Components and API routes
-  const res = response()
-  res.headers.set("x-tenant-id", org.id)
-  res.headers.set("x-tenant-schema", org.schema_name)
-
   // Protected tenant routes: require authentication
   const pathname = request.nextUrl.pathname
   if (!isPublicPath(pathname) && !user) {
     const loginUrl = new URL("/login", request.url)
     loginUrl.searchParams.set("redirect", pathname)
     return NextResponse.redirect(loginUrl)
+  }
+
+  // Inject tenant headers into the REQUEST so downstream API routes
+  // can read them via headers() from "next/headers"
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set("x-tenant-id", org.id)
+  requestHeaders.set("x-tenant-schema", org.schema_name)
+
+  const res = NextResponse.next({
+    request: { headers: requestHeaders },
+  })
+
+  // Preserve auth cookies set by the Supabase middleware client
+  const authResponse = response()
+  for (const cookie of authResponse.cookies.getAll()) {
+    res.cookies.set(cookie)
   }
 
   return res

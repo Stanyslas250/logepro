@@ -10,6 +10,7 @@ const navItems = [
   { href: "/guests", label: "Clients", icon: "group" },
   { href: "/housekeeping", label: "Ménage", icon: "cleaning_services" },
   { href: "/reports", label: "Rapports", icon: "bar_chart" },
+  { href: "/support", label: "Support", icon: "support_agent" },
 ]
 
 const bottomItems = [

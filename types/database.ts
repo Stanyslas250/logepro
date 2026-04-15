@@ -174,3 +174,75 @@ export interface Task {
   completed_at: string | null
   created_at: string
 }
+
+// ---------------------------------------------------------------------------
+// Settings & Support types
+// ---------------------------------------------------------------------------
+
+export interface HotelFloor {
+  id: string
+  name: string
+  floor_number: number
+  room_count: number
+  created_at: string
+}
+
+export interface RoomCategory {
+  id: string
+  name: string
+  subtitle: string | null
+  status_label: string
+  base_rate: number
+  capacity: number
+  room_numbers: string[]
+  created_at: string
+}
+
+export type ServiceCategory = "wellness" | "logistics" | "gastronomy"
+
+export interface Service {
+  id: string
+  name: string
+  category: ServiceCategory
+  description: string
+  price_label: string
+  image_url: string | null
+  is_available: boolean
+  created_at: string
+}
+
+export type TicketStatus = "open" | "in_progress" | "resolved" | "closed"
+export type TicketPriority = "low" | "medium" | "high"
+
+export interface SupportTicket {
+  id: string
+  subject: string
+  description: string
+  status: TicketStatus
+  priority: TicketPriority
+  ticket_number: string
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type MessageRole = "tenant" | "agent"
+
+export interface SupportMessage {
+  id: string
+  ticket_id: string
+  sender_role: MessageRole
+  content: string
+  created_at: string
+}
+
+export type AppointmentStatus = "pending" | "confirmed" | "completed"
+
+export interface SupportAppointment {
+  id: string
+  scheduled_at: string
+  topic: string
+  status: AppointmentStatus
+  created_by: string | null
+  created_at: string
+}
