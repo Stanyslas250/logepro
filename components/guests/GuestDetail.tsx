@@ -11,7 +11,7 @@ interface GuestDetailProps {
 
 export function GuestDetail({ guestId, onClose, onEdit }: GuestDetailProps) {
   const [guest, setGuest] = useState<Guest | null>(null)
-  const [reservations, setReservations] = useState<(Reservation & { rooms: unknown })[]>([])
+  const [reservations, setReservations] = useState<(Reservation & { rooms: { number?: string; type?: string } | null })[]>([])
   const [loading, setLoading] = useState(true)
 
   const fetchGuestDetails = useCallback(async () => {
