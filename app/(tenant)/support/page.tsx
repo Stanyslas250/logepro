@@ -35,8 +35,8 @@ export default function SupportPage() {
       }
 
       if (appointmentsRes.ok) {
-        const appointmentsData = await appointmentsRes.json()
-        setAppointments(appointmentsData.appointments || [])
+        // const appointmentsData = await appointmentsRes.json()
+        // setAppointments(appointmentsData.appointments || [])
       }
     } catch (error) {
       console.error("Failed to fetch data:", error)

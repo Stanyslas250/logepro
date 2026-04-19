@@ -24,11 +24,14 @@ function extractTenantSlug(request: NextRequest): string | null {
     return null
   }
 
-  // Production: hotel-marlin.logepro.app
-  const clean = hostname.replace(/:\d+$/, "")
-  const parts = clean.split(".")
-  if (parts.length >= 3) {
-    const sub = parts[0]
+  // Production: <tenant>.<APP_DOMAIN>, ex: hotel-marlin.logepro.app
+  // ou hotel-marlin.logepro.aspire.site
+  const clean = hostname.replace(/:\d+$/, "").toLowerCase()
+  const appDomain = APP_DOMAIN.toLowerCase()
+
+  if (clean === appDomain) return null
+  if (clean.endsWith(`.${appDomain}`)) {
+    const sub = clean.slice(0, clean.length - appDomain.length - 1).split(".")[0]
     if (SPECIAL_SUBDOMAINS.includes(sub)) return null
     return sub
   }
