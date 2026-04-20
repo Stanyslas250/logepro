@@ -12,8 +12,9 @@ export function FloorVisualizer({ floors, roomsPerFloor }: FloorVisualizerProps)
   const cols = Math.min(roomsPerFloor, 8)
 
   return (
-    <div className="relative flex flex-1 flex-col overflow-hidden rounded-3xl border border-border bg-muted p-8">
-      <div className="absolute -mr-20 -mt-20 right-0 top-0 size-64 rounded-full bg-primary/5 blur-3xl" />
+    <div className="gradient-border relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-2xl border border-border/40 bg-card/60 p-6 shadow-2xl shadow-primary/10 backdrop-blur-xl md:p-8">
+      <div className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 bottom-0 size-64 rounded-full bg-chart-2/10 blur-3xl" />
 
       <div className="relative z-10 mb-10 flex items-center justify-between">
         <h3 className="font-heading text-xs font-bold uppercase tracking-widest text-foreground">
@@ -41,7 +42,7 @@ export function FloorVisualizer({ floors, roomsPerFloor }: FloorVisualizerProps)
                 return (
                   <div key={floorIdx} className="group relative">
                     <div className="flex gap-2">
-                      <div className="flex h-20 flex-1 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-[1.02]">
+                      <div className="flex h-20 flex-1 items-center justify-center rounded-lg bg-linear-to-br from-primary to-chart-2 text-primary-foreground shadow-lg shadow-primary/30 transition-transform duration-300 group-hover:scale-[1.02]">
                         <div className="flex flex-col items-center gap-1">
                           <svg
                             className="size-5"

@@ -9,7 +9,7 @@ Ce guide décrit comment déployer **Logepro** (Next.js 16 + Supabase, multi-ten
 - Un compte Vercel lié à ton compte GitHub.
 - Le repo `logepro` poussé sur GitHub.
 - Un projet **Supabase** actif avec les migrations du dossier `sql/` appliquées.
-- Un domaine racine disponible (ex. `logepro.app` ou `logepro.aspire.site`).
+- Un domaine racine disponible (ex. `logepro.app` ou `logepro.aspireby.site`).
 - Un accès à ton fournisseur **DNS** pour créer les enregistrements.
 
 ---
@@ -35,7 +35,7 @@ Dans **Project Settings → Environment Variables**, ajouter pour les 3 environn
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxx.supabase.co` | Project URL Supabase |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJ...` | Anon public key |
 | `SUPABASE_SERVICE_ROLE_KEY` | `eyJ...` | **Secret** — jamais exposé côté client |
-| `NEXT_PUBLIC_APP_DOMAIN` | `logepro.app` (ou `logepro.aspire.site`) | Domaine racine utilisé par `proxy.ts` |
+| `NEXT_PUBLIC_APP_DOMAIN` | `logepro.app` (ou `logepro.aspireby.site`) | Domaine racine utilisé par `proxy.ts` |
 | `NEXT_PUBLIC_PROTOCOL` | `https` | `http` en dev uniquement |
 
 > ⚠️ `SUPABASE_SERVICE_ROLE_KEY` doit être marquée **Sensitive**. Ne pas la préfixer `NEXT_PUBLIC_`.
@@ -64,13 +64,13 @@ Dans **Project Settings → Domains** :
    - ou `CNAME` sur le root selon ton DNS (ALIAS/ANAME si dispo).
 3. Attendre la propagation DNS + l'émission du certificat TLS.
 
-### Cas `logepro.aspire.site` (sous-domaine d'un domaine tiers)
+### Cas `logepro.aspireby.site` (sous-domaine d'un domaine tiers)
 
-Si tu déploies sous `logepro.aspire.site` :
+Si tu déploies sous `logepro.aspireby.site` :
 
-1. Ajouter `logepro.aspire.site` comme domaine dans Vercel.
-2. Chez le gestionnaire de `aspire.site`, créer un `CNAME` :
-   - `logepro.aspire.site` → `cname.vercel-dns.com`
+1. Ajouter `logepro.aspireby.site` comme domaine dans Vercel.
+2. Chez le gestionnaire de `aspireby.site`, créer un `CNAME` :
+   - `logepro.aspireby.site` → `cname.vercel-dns.com`
 
 ---
 
@@ -82,15 +82,15 @@ Le middleware `proxy.ts` attend des URLs du type `hotel-marlin.<APP_DOMAIN>`. Il
 
 Dans **Project Settings → Domains**, ajouter :
 
-- `*.logepro.app` (ou `*.logepro.aspire.site`)
+- `*.logepro.app` (ou `*.logepro.aspireby.site`)
 
 ### Configurer le DNS
 
 | Type | Nom | Valeur |
 |---|---|---|
-| `CNAME` | `*` (ou `*.logepro` pour aspire.site) | `cname.vercel-dns.com` |
+| `CNAME` | `*` (ou `*.logepro` pour aspireby.site) | `cname.vercel-dns.com` |
 
-> Certains fournisseurs DNS ne supportent pas les wildcards CNAME sur un sous-domaine (`*.logepro.aspire.site`). Vérifier chez le registrar ; sinon utiliser Cloudflare en proxy.
+> Certains fournisseurs DNS ne supportent pas les wildcards CNAME sur un sous-domaine (`*.logepro.aspireby.site`). Vérifier chez le registrar ; sinon utiliser Cloudflare en proxy.
 
 ### Certificat TLS wildcard
 

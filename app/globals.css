@@ -133,3 +133,80 @@
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+/* ============== Landing page visual utilities ============== */
+
+/* Subtle grid pattern background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Radial spotlight mask */
+.mask-radial-faded {
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+/* Aurora / mesh gradient blobs */
+@keyframes aurora-float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(4%, -6%, 0) scale(1.08); }
+  66% { transform: translate3d(-5%, 4%, 0) scale(0.95); }
+}
+.animate-aurora {
+  animation: aurora-float 18s ease-in-out infinite;
+}
+
+/* Slow pulse for glow rings */
+@keyframes soft-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.animate-soft-pulse {
+  animation: soft-pulse 4s ease-in-out infinite;
+}
+
+/* Infinite marquee */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee-x 35s linear infinite;
+}
+
+/* Gradient border helper (used with data-slot) */
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 60%, transparent),
+    color-mix(in oklch, var(--foreground) 12%, transparent) 40%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Sheen on hover for premium cards */
+@keyframes sheen {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+.group:hover .animate-sheen {
+  animation: sheen 1.2s ease-out;
+}
