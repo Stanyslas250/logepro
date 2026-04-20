@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { ChevronLeft, ChevronRight, Plus, Search } from "lucide-react"
 import type { Guest } from "@/types/database"
 import { GuestTable } from "@/components/guests/GuestTable"
 import { GuestFormModal } from "@/components/guests/GuestFormModal"
@@ -120,13 +121,13 @@ export default function GuestsPage() {
   const totalPages = Math.ceil(total / 20)
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-10">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Clients</h1>
-          <p className="text-muted-foreground">
-            Gérez votre base de données clients et leur historique de réservations.
+          <h1 className="text-[22px] font-semibold tracking-tight text-foreground">Clients</h1>
+          <p className="mt-0.5 text-[13px] text-muted-foreground">
+            Gérez votre base clients et leur historique de réservations.
           </p>
         </div>
         <button
@@ -134,29 +135,26 @@ export default function GuestsPage() {
             setSelectedGuest(null)
             setIsFormOpen(true)
           }}
-          className="px-6 py-2 bg-primary text-primary-foreground rounded-full text-sm font-bold hover:bg-primary/90 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
+          <Plus className="size-[14px]" strokeWidth={2} />
           Ajouter un client
         </button>
       </div>
 
       {/* Search */}
-      <div className="mb-6">
-        <div className="relative max-w-md">
-          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
-            search
-          </span>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-              setPage(1)
-            }}
-            placeholder="Rechercher par nom, email ou téléphone..."
-            className="w-full pl-12 pr-4 py-3 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-        </div>
+      <div className="relative max-w-sm">
+        <Search className="absolute left-2.5 top-1/2 size-[14px] -translate-y-1/2 text-muted-foreground" strokeWidth={1.75} />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value)
+            setPage(1)
+          }}
+          placeholder="Rechercher par nom, email ou téléphone…"
+          className="h-9 w-full rounded-md border border-border bg-card pl-8 pr-3 text-[13px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30"
+        />
       </div>
 
       {/* Table */}
@@ -170,50 +168,23 @@ export default function GuestsPage() {
 
       {/* Pagination */}
       {!loading && totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-8">
+        <div className="flex items-center justify-center gap-2 pt-2">
           <button
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
-            className="p-2 rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
           >
-            <span className="material-symbols-outlined">chevron_left</span>
+            <ChevronLeft className="size-4" strokeWidth={1.75} />
           </button>
-          
-          <div className="flex items-center gap-1">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              const pageNum = i + 1
-              const isActive = pageNum === page
-              
-              if (totalPages > 5 && i === 4) {
-                return (
-                  <span key="dots" className="px-2 text-muted-foreground">
-                    ...
-                  </span>
-                )
-              }
-              
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => setPage(pageNum)}
-                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "hover:bg-muted"
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              )
-            })}
-          </div>
-          
+          <span className="px-2 text-[11.5px] text-muted-foreground tabular-nums">
+            {page} / {totalPages}
+          </span>
           <button
             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={page === totalPages}
-            className="p-2 rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
           >
-            <span className="material-symbols-outlined">chevron_right</span>
+            <ChevronRight className="size-4" strokeWidth={1.75} />
           </button>
         </div>
       )}

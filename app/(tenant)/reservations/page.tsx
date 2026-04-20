@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import Link from "next/link"
+import { Plus } from "lucide-react"
 import { getTenantClient } from "@/lib/supabase/tenant"
 import { requireAuth } from "@/lib/auth/require-auth"
 import type { Reservation, Room, Guest } from "@/types/database"
@@ -75,42 +76,37 @@ export default async function ReservationsPage({ searchParams }: PageProps) {
     todayRes?.reduce((sum, r) => sum + (r.total_amount ?? 0), 0) ?? 0
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
         <div>
-          <h2 className="text-4xl font-extrabold font-heading tracking-tight">
+          <h1 className="text-[22px] font-semibold tracking-tight text-foreground">
             Réservations
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            Gérez le flux de vos invités et l&apos;occupation des chambres en
-            temps réel.
+          </h1>
+          <p className="mt-0.5 text-[13px] text-muted-foreground">
+            Gérez le flux de vos clients et l&apos;occupation des chambres.
           </p>
         </div>
         <Link
           href="/reservations/new"
-          className="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
-          <span className="material-symbols-outlined text-sm">add</span>
-          Nouvelle Réservation
+          <Plus className="size-[14px]" strokeWidth={2} />
+          Nouvelle réservation
         </Link>
       </div>
 
-      {/* Filters & Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-1">
-          <Suspense fallback={null}>
-            <ReservationFilters />
-          </Suspense>
-        </div>
-        <div className="md:col-span-3">
-          <ReservationStats
-            arrivalsToday={arrivalsToday ?? 0}
-            occupancyRate={occupancyRate}
-            projectedRevenue={projectedRevenue}
-          />
-        </div>
-      </div>
+      {/* Stats */}
+      <ReservationStats
+        arrivalsToday={arrivalsToday ?? 0}
+        occupancyRate={occupancyRate}
+        projectedRevenue={projectedRevenue}
+      />
+
+      {/* Filters */}
+      <Suspense fallback={null}>
+        <ReservationFilters />
+      </Suspense>
 
       {/* Table */}
       <ReservationTable

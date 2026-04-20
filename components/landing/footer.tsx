@@ -113,7 +113,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 md:flex-row">
           <p className="text-xs text-muted-foreground">
-            © 2026 LogePro. Fait avec ❤️ en Côte d&apos;Ivoire.
+            © 2026 LogePro. Fait avec ❤️ au Gabon.
           </p>
           <div className="flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-xs text-muted-foreground">
             <span className="relative flex size-2">

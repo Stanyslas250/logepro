@@ -1,7 +1,38 @@
+import { CalendarCheck, Hotel, Wallet } from "lucide-react"
+
 interface ReservationStatsProps {
   arrivalsToday: number
   occupancyRate: number
   projectedRevenue: number
+}
+
+function Kpi({
+  label,
+  value,
+  icon: Icon,
+  hint,
+}: {
+  label: string
+  value: string | number
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
+  hint?: string
+}) {
+  return (
+    <div className="flex flex-col rounded-lg border border-border bg-card p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          {label}
+        </p>
+        <Icon className="size-4 text-muted-foreground" strokeWidth={1.5} />
+      </div>
+      <p className="text-[26px] font-semibold leading-none tracking-tight">
+        {value}
+      </p>
+      {hint && (
+        <p className="mt-1.5 text-[11.5px] text-muted-foreground">{hint}</p>
+      )}
+    </div>
+  )
 }
 
 export function ReservationStats({
@@ -10,62 +41,29 @@ export function ReservationStats({
   projectedRevenue,
 }: ReservationStatsProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div className="bg-primary text-primary-foreground p-6 rounded-xl flex flex-col justify-between shadow-lg">
-        <div className="flex justify-between items-start">
-          <span className="material-symbols-outlined opacity-80">
-            event_available
-          </span>
-        </div>
-        <div className="mt-4">
-          <p className="text-3xl font-extrabold font-heading leading-none">
-            {arrivalsToday}
-          </p>
-          <p className="text-xs font-medium opacity-80 mt-1">
-            Arrivées aujourd&apos;hui
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-emerald-600 text-white p-6 rounded-xl flex flex-col justify-between shadow-lg">
-        <div className="flex justify-between items-start">
-          <span className="material-symbols-outlined opacity-80">hotel</span>
-          <span className="text-[10px] font-bold bg-white/20 px-2 py-1 rounded-full">
-            {occupancyRate >= 80 ? "Optimal" : "Normal"}
-          </span>
-        </div>
-        <div className="mt-4">
-          <p className="text-3xl font-extrabold font-heading leading-none">
-            {occupancyRate}%
-          </p>
-          <p className="text-xs font-medium opacity-80 mt-1">
-            Taux d&apos;occupation
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-card p-6 rounded-xl flex flex-col justify-between border border-border">
-        <div className="flex justify-between items-start">
-          <span className="material-symbols-outlined text-primary">
-            payments
-          </span>
-          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
-            Revenu
-          </span>
-        </div>
-        <div className="mt-4">
-          <p className="text-3xl font-extrabold font-heading leading-none">
-            {new Intl.NumberFormat("fr-FR", {
-              style: "currency",
-              currency: "XAF",
-              maximumFractionDigits: 0,
-            }).format(projectedRevenue)}
-          </p>
-          <p className="text-xs font-medium text-muted-foreground mt-1">
-            CA prévisionnel (J)
-          </p>
-        </div>
-      </div>
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <Kpi
+        label="Arrivées"
+        value={arrivalsToday}
+        icon={CalendarCheck}
+        hint="Aujourd'hui"
+      />
+      <Kpi
+        label="Occupation"
+        value={`${occupancyRate}%`}
+        icon={Hotel}
+        hint={occupancyRate >= 80 ? "Taux optimal" : "Taux normal"}
+      />
+      <Kpi
+        label="CA prévisionnel"
+        value={new Intl.NumberFormat("fr-FR", {
+          style: "currency",
+          currency: "XAF",
+          maximumFractionDigits: 0,
+        }).format(projectedRevenue)}
+        icon={Wallet}
+        hint="Estimé sur les arrivées du jour"
+      />
     </div>
   )
 }

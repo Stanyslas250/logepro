@@ -1,5 +1,4 @@
-import { HugeiconsIcon } from "@hugeicons/react"
-import { SparklesIcon } from "@hugeicons/core-free-icons"
+import { Sparkles } from "lucide-react"
 
 interface ReservationSummaryProps {
   inHome: number
@@ -14,41 +13,44 @@ export function ReservationSummary({
   departures,
   cleaningTasks,
 }: ReservationSummaryProps) {
+  const items = [
+    { label: "En cours", value: inHome, accent: true },
+    { label: "Arrivées", value: arrivals },
+    { label: "Départs", value: departures },
+  ]
+
   return (
-    <div className="bg-card rounded-xl p-6 space-y-6 border border-border shadow-sm">
-      <div className="flex justify-between items-center">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+    <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
           Réservations
-        </h3>
-        <button className="text-muted-foreground hover:text-foreground transition-colors">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-          </svg>
-        </button>
+        </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <div className="text-center">
-          <p className="text-3xl font-extrabold text-primary">{inHome}</p>
-          <p className="text-xs text-muted-foreground font-medium mt-1">En cours</p>
-        </div>
-        <div className="text-center">
-          <p className="text-3xl font-extrabold text-foreground">{arrivals}</p>
-          <p className="text-xs text-muted-foreground font-medium mt-1">Arrivées</p>
-        </div>
-        <div className="text-center">
-          <p className="text-3xl font-extrabold text-foreground">{departures}</p>
-          <p className="text-xs text-muted-foreground font-medium mt-1">Départs</p>
-        </div>
+      <div className="grid grid-cols-3 gap-3">
+        {items.map((it) => (
+          <div key={it.label}>
+            <p
+              className={`text-[26px] font-semibold tracking-tight leading-none ${
+                it.accent ? "text-foreground" : "text-foreground"
+              }`}
+            >
+              {it.value}
+            </p>
+            <p className="mt-1.5 text-[11.5px] text-muted-foreground">
+              {it.label}
+            </p>
+          </div>
+        ))}
       </div>
 
-      <div className="pt-4 border-t border-border flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <HugeiconsIcon icon={SparklesIcon} size={16} className="text-amber-500" />
-          <span className="text-xs font-semibold">Ménage</span>
+      <div className="mt-auto flex items-center justify-between border-t border-border/60 pt-3">
+        <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+          <Sparkles className="size-3.5" strokeWidth={1.75} />
+          <span>Ménage en attente</span>
         </div>
-        <span className="px-2 py-1 bg-amber-50 text-amber-600 rounded text-[10px] font-bold">
-          {cleaningTasks} TÂCHES
+        <span className="text-[12px] font-medium text-foreground">
+          {cleaningTasks}
         </span>
       </div>
     </div>

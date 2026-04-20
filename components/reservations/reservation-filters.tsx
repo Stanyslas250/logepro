@@ -2,6 +2,16 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
+import { X } from "lucide-react"
+
+const STATUS_TABS: { value: string; label: string }[] = [
+  { value: "all", label: "Toutes" },
+  { value: "confirmed", label: "Confirmées" },
+  { value: "pending", label: "En attente" },
+  { value: "checked_in", label: "En cours" },
+  { value: "checked_out", label: "Terminées" },
+  { value: "cancelled", label: "Annulées" },
+]
 
 export function ReservationFilters() {
   const router = useRouter()
@@ -9,6 +19,7 @@ export function ReservationFilters() {
 
   const currentStatus = searchParams.get("status") ?? "all"
   const currentRoomType = searchParams.get("room_type") ?? "all"
+  const hasFilters = currentStatus !== "all" || currentRoomType !== "all"
 
   const updateFilter = useCallback(
     (key: string, value: string) => {
@@ -19,63 +30,53 @@ export function ReservationFilters() {
         params.set(key, value)
       }
       params.delete("page")
-      router.push(`/reservations?${params.toString()}`)
+      const qs = params.toString()
+      router.push(qs ? `/reservations?${qs}` : "/reservations")
     },
     [router, searchParams]
   )
 
-  const resetFilters = useCallback(() => {
-    router.push("/reservations")
-  }, [router])
-
   return (
-    <div className="bg-card p-6 rounded-xl border border-border space-y-4">
-      <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-        Filtres Actifs
-      </p>
+    <div className="flex flex-wrap items-center gap-2">
+      <div className="inline-flex items-center rounded-md border border-border bg-card p-0.5">
+        {STATUS_TABS.map((t) => {
+          const active = currentStatus === t.value
+          return (
+            <button
+              key={t.value}
+              onClick={() => updateFilter("status", t.value)}
+              className={`rounded px-2.5 py-1 text-[12px] font-medium transition-colors ${
+                active
+                  ? "bg-accent text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {t.label}
+            </button>
+          )
+        })}
+      </div>
 
-      <div className="space-y-4">
-        <div>
-          <label className="block text-xs font-semibold text-foreground mb-2">
-            Statut
-          </label>
-          <select
-            value={currentStatus}
-            onChange={(e) => updateFilter("status", e.target.value)}
-            className="w-full bg-muted border-none rounded-lg text-sm py-2 px-3 focus:ring-2 focus:ring-primary/10"
-          >
-            <option value="all">Tous les statuts</option>
-            <option value="confirmed">Confirmé</option>
-            <option value="pending">En attente</option>
-            <option value="checked_in">Séjour en cours</option>
-            <option value="checked_out">Terminé</option>
-            <option value="cancelled">Annulé</option>
-          </select>
-        </div>
+      <select
+        value={currentRoomType}
+        onChange={(e) => updateFilter("room_type", e.target.value)}
+        className="h-8 rounded-md border border-border bg-card px-2.5 text-[12.5px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring/30"
+      >
+        <option value="all">Tous types</option>
+        <option value="standard">Standard</option>
+        <option value="suite">Suite</option>
+        <option value="apartment">Appartement</option>
+      </select>
 
-        <div>
-          <label className="block text-xs font-semibold text-foreground mb-2">
-            Type de Chambre
-          </label>
-          <select
-            value={currentRoomType}
-            onChange={(e) => updateFilter("room_type", e.target.value)}
-            className="w-full bg-muted border-none rounded-lg text-sm py-2 px-3 focus:ring-2 focus:ring-primary/10"
-          >
-            <option value="all">Tous types</option>
-            <option value="standard">Standard</option>
-            <option value="suite">Suite</option>
-            <option value="apartment">Appartement</option>
-          </select>
-        </div>
-
+      {hasFilters && (
         <button
-          onClick={resetFilters}
-          className="w-full py-2 text-xs font-bold text-primary bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors border border-primary/20"
+          onClick={() => router.push("/reservations")}
+          className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-[12px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
+          <X className="size-3.5" strokeWidth={1.75} />
           Réinitialiser
         </button>
-      </div>
+      )}
     </div>
   )
 }

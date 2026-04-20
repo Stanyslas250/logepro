@@ -1,3 +1,5 @@
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 interface BookingEvent {
   id: string
@@ -15,110 +17,81 @@ interface CalendarWidgetProps {
 
 export function CalendarWidget({ events }: CalendarWidgetProps) {
   const defaultEvents: BookingEvent[] = [
-    {
-      id: "1",
-      guestName: "Jean Dupont",
-      roomType: "Deluxe King",
-      roomNumber: "Chambre 302",
-      date: 20,
-      day: "Lun",
-      status: "arrival",
-    },
-    {
-      id: "2",
-      guestName: "Marie Laurent",
-      roomType: "Suite Simple",
-      roomNumber: "Chambre 104",
-      date: 21,
-      day: "Mar",
-      status: "departure",
-    },
-    {
-      id: "3",
-      guestName: "",
-      roomType: "",
-      roomNumber: "",
-      date: 22,
-      day: "Mer",
-      status: "none",
-    },
+    { id: "1", guestName: "Jean Dupont", roomType: "Deluxe King", roomNumber: "Ch. 302", date: 20, day: "Lun", status: "arrival" },
+    { id: "2", guestName: "Marie Laurent", roomType: "Suite", roomNumber: "Ch. 104", date: 21, day: "Mar", status: "departure" },
+    { id: "3", guestName: "", roomType: "", roomNumber: "", date: 22, day: "Mer", status: "none" },
   ]
 
   const bookingEvents = events || defaultEvents
 
-  const getStatusColor = (status: BookingEvent["status"]) => {
-    switch (status) {
-      case "arrival":
-        return "bg-blue-50 border-l-4 border-primary"
-      case "departure":
-        return "bg-emerald-50 border-l-4 border-emerald-600"
-      default:
-        return ""
-    }
-  }
-
-  const getTextColor = (status: BookingEvent["status"]) => {
-    switch (status) {
-      case "arrival":
-        return "text-primary"
-      case "departure":
-        return "text-emerald-600"
-      default:
-        return ""
-    }
-  }
-
   return (
-    <div className="bg-card rounded-xl p-6 space-y-6 border border-border shadow-sm">
-      <div className="flex justify-between items-center">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
-          Calendrier
-        </h3>
-        <span className="text-xs font-bold text-primary">
+    <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          Planning
+        </p>
+        <span className="text-[11px] text-muted-foreground">
           {new Date().toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}
         </span>
       </div>
 
-      <div className="space-y-4">
-        {bookingEvents.map((event) => (
-          <div key={event.id} className="flex items-start gap-4">
-            <div className="flex flex-col items-center min-w-[40px]">
-              <span className="text-[10px] font-bold text-muted-foreground uppercase">
-                {event.day}
-              </span>
-              <span
-                className={`text-lg font-extrabold ${
-                  event.status === "none" ? "text-muted-foreground/30" : ""
-                }`}
-              >
-                {event.date}
-              </span>
-            </div>
-            <div className="flex-1 space-y-2">
-              {event.status === "none" ? (
-                <div className="flex items-center h-12 border-b border-dashed border-border">
-                  <span className="text-[10px] italic text-muted-foreground">
-                    Aucune arrivée prévue
-                  </span>
-                </div>
+      <div className="space-y-2">
+        {bookingEvents.map((event) => {
+          const empty = event.status === "none"
+          return (
+            <div
+              key={event.id}
+              className="flex items-center gap-3 rounded-md border border-border/60 px-3 py-2"
+            >
+              <div className="flex min-w-[34px] flex-col items-center">
+                <span className="text-[10px] uppercase text-muted-foreground">
+                  {event.day}
+                </span>
+                <span
+                  className={`text-[15px] font-semibold tabular-nums ${
+                    empty ? "text-muted-foreground/40" : "text-foreground"
+                  }`}
+                >
+                  {event.date}
+                </span>
+              </div>
+              {empty ? (
+                <span className="text-[11.5px] italic text-muted-foreground">
+                  Aucune arrivée prévue
+                </span>
               ) : (
-                <div className={`p-3 rounded-lg ${getStatusColor(event.status)}`}>
-                  <p className={`text-xs font-bold ${getTextColor(event.status)}`}>
-                    {event.guestName}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">
-                    {event.roomType} • {event.roomNumber}
-                  </p>
+                <div className="flex min-w-0 flex-1 items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-[12.5px] font-medium text-foreground">
+                      {event.guestName}
+                    </p>
+                    <p className="truncate text-[11px] text-muted-foreground">
+                      {event.roomType} · {event.roomNumber}
+                    </p>
+                  </div>
+                  <span
+                    className={`shrink-0 rounded-full border px-1.5 py-0.5 text-[9.5px] uppercase tracking-wide ${
+                      event.status === "arrival"
+                        ? "border-primary/30 text-primary"
+                        : "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                    }`}
+                  >
+                    {event.status === "arrival" ? "Arrivée" : "Départ"}
+                  </span>
                 </div>
               )}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
-      <button className="w-full py-2 text-xs font-bold text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+      <Link
+        href="/reservations"
+        className="mt-auto inline-flex items-center justify-center gap-1 pt-4 text-[12px] font-medium text-muted-foreground hover:text-foreground"
+      >
         Voir le planning complet
-      </button>
+        <ArrowRight className="size-3" strokeWidth={2} />
+      </Link>
     </div>
   )
 }

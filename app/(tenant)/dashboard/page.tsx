@@ -219,21 +219,31 @@ export default async function DashboardPage() {
     }
   })
 
+  const todayLabel = new Date().toLocaleDateString("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  })
+
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="font-heading text-3xl font-extrabold tracking-tight">
-          Tableau de bord
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Bonjour, {user.email?.split("@")[0]} !
-        </p>
+    <div className="space-y-5">
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <h1 className="text-[22px] font-semibold tracking-tight text-foreground">
+            Vue d&apos;ensemble
+          </h1>
+          <p className="mt-0.5 text-[13px] text-muted-foreground">
+            Bonjour {user.email?.split("@")[0]} — voici votre activité du jour.
+          </p>
+        </div>
+        <span className="hidden text-[12px] capitalize text-muted-foreground sm:inline">
+          {todayLabel}
+        </span>
       </div>
 
-      {/* Bento Grid - Top Row */}
-      <div className="grid grid-cols-12 gap-6 mb-6">
-        {/* Reservation Summary */}
-        <div className="col-span-12 lg:col-span-4">
+      {/* Row 1 — KPI cards */}
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-12 md:col-span-4">
           <ReservationSummary
             inHome={occupied}
             arrivals={arrivalsToday ?? 0}
@@ -241,18 +251,14 @@ export default async function DashboardPage() {
             cleaningTasks={cleaning}
           />
         </div>
-
-        {/* Occupancy Chart */}
-        <div className="col-span-12 lg:col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <OccupancyChart
             vacant={available}
             occupied={occupied}
             notReady={notReady}
           />
         </div>
-
-        {/* Revenue Card */}
-        <div className="col-span-12 lg:col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <RevenueCard
             last30Days={revenueLast30Days}
             yesterday={revenueYesterday}
@@ -260,27 +266,21 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Second Row */}
-      <div className="grid grid-cols-12 gap-6 mb-6">
-        {/* Booking Trends Graph */}
+      {/* Row 2 */}
+      <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 lg:col-span-8">
           <BookingTrendsChart data={bookingTrends} />
         </div>
-
-        {/* Calendar Widget */}
         <div className="col-span-12 lg:col-span-4">
           <CalendarWidget events={calendarEvents} />
         </div>
       </div>
 
-      {/* Third Row */}
-      <div className="grid grid-cols-12 gap-6">
-        {/* New Customers List */}
+      {/* Row 3 */}
+      <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 lg:col-span-6">
           <NewCustomersList customers={customerList} />
         </div>
-
-        {/* Recent Activities */}
         <div className="col-span-12 lg:col-span-6">
           <RecentActivities activities={activityList} />
         </div>

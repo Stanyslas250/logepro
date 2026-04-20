@@ -1,6 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import {
+  CreditCard,
+  Rocket,
+  Users as UsersIcon,
+  Terminal,
+  ExternalLink,
+  MessageCircle,
+  type LucideIcon,
+} from "lucide-react"
 import type { SupportTicket, SupportAppointment } from "@/types/database"
 import { SupportHero } from "@/components/support/SupportHero"
 import { ContactCard } from "@/components/support/ContactCard"
@@ -88,17 +97,17 @@ export default function SupportPage() {
     setIsChatOpen(true)
   }
 
-  const quickLinks = [
-    { icon: "payments", label: "Facturation & Paiements", href: "#" },
-    { icon: "rocket_launch", label: "Configuration du compte", href: "#" },
-    { icon: "group", label: "Permissions du personnel", href: "#" },
-    { icon: "terminal", label: "Documentation développeur", href: "#" },
+  const quickLinks: { icon: LucideIcon; label: string; href: string }[] = [
+    { icon: CreditCard, label: "Facturation & Paiements", href: "#" },
+    { icon: Rocket, label: "Configuration du compte", href: "#" },
+    { icon: UsersIcon, label: "Permissions du personnel", href: "#" },
+    { icon: Terminal, label: "Documentation développeur", href: "#" },
   ]
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
+        Chargement…
       </div>
     )
   }
@@ -152,33 +161,41 @@ export default function SupportPage() {
 
         {/* FAQ Quick Links */}
         <div className="lg:col-span-4">
-          <h2 className="text-2xl font-bold mb-6">Guides courants</h2>
-          <div className="space-y-4">
-            {quickLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="flex items-center justify-between p-5 bg-muted rounded-2xl hover:bg-accent transition-colors group"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined text-primary">
-                    {link.icon}
-                  </span>
-                  <span className="font-bold">{link.label}</span>
-                </div>
-                <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">
-                  open_in_new
-                </span>
-              </a>
-            ))}
+          <h2 className="mb-3 text-[13px] font-medium uppercase tracking-wider text-muted-foreground">
+            Guides courants
+          </h2>
+          <div className="space-y-1.5">
+            {quickLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="group flex items-center justify-between rounded-md border border-border bg-card px-3 py-2.5 transition-colors hover:bg-accent/40"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon className="size-[15px] text-muted-foreground" strokeWidth={1.75} />
+                    <span className="text-[13px] font-medium text-foreground">{link.label}</span>
+                  </div>
+                  <ExternalLink className="size-3.5 text-muted-foreground/70 transition-colors group-hover:text-foreground" strokeWidth={1.75} />
+                </a>
+              )
+            })}
           </div>
 
-          <div className="mt-8 p-6 bg-gradient-to-br from-blue-900 to-blue-700 rounded-[2rem] text-white">
-            <p className="text-sm font-semibold opacity-80 mb-2">Besoin d&apos;une démo ?</p>
-            <h4 className="text-xl font-bold mb-4">Demandez une visite guidée des fonctionnalités</h4>
+          <div className="mt-6 rounded-lg border border-border bg-card p-4">
+            <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              Besoin d&apos;une démo ?
+            </p>
+            <h4 className="mt-1 text-[14px] font-semibold text-foreground">
+              Demandez une visite guidée
+            </h4>
+            <p className="mt-1 text-[12px] text-muted-foreground">
+              Un expert vous montre comment tirer le meilleur de LogePro.
+            </p>
             <button
               onClick={() => setIsAppointmentOpen(true)}
-              className="w-full py-3 bg-white text-blue-900 rounded-xl font-bold text-sm shadow-xl hover:bg-blue-50 transition-colors"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-[12.5px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
             >
               Planifier maintenant
             </button>
@@ -195,11 +212,10 @@ export default function SupportPage() {
             setIsChatOpen(true)
           }
         }}
-        className="fixed bottom-8 right-8 h-16 w-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
+        aria-label="Ouvrir le chat support"
+        className="fixed bottom-6 right-6 inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105 active:scale-95"
       >
-        <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-          forum
-        </span>
+        <MessageCircle className="size-5" strokeWidth={1.75} />
       </button>
 
       {/* Modals */}

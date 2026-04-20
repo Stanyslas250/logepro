@@ -348,18 +348,14 @@ export function SettingsClient({
         onSave={saveService}
       />
 
-      <section className="space-y-6">
-        <div className="flex justify-between items-end">
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-2">
-              Paramètres de l’établissement
-            </h1>
-            <p className="text-on-surface-variant max-w-2xl">
-              Gérez les étages, les catégories de chambres et les services proposés aux clients. Le
-              plan affiche les chambres dont le numéro d’étage correspond à celui défini pour chaque
-              niveau.
-            </p>
-          </div>
+      <section className="space-y-5">
+        <div>
+          <h1 className="text-[22px] font-semibold tracking-tight text-foreground">
+            Paramètres de l&apos;établissement
+          </h1>
+          <p className="mt-0.5 max-w-2xl text-[13px] text-muted-foreground">
+            Gérez les étages, les catégories de chambres et les services proposés aux clients. Le plan affiche les chambres dont le numéro d&apos;étage correspond au niveau défini.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

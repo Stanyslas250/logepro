@@ -1,5 +1,4 @@
-import { HugeiconsIcon } from "@hugeicons/react"
-import { FilterIcon } from "@hugeicons/core-free-icons"
+import { SlidersHorizontal } from "lucide-react"
 
 interface Activity {
   id: string
@@ -15,80 +14,63 @@ interface RecentActivitiesProps {
 
 export function RecentActivities({ activities }: RecentActivitiesProps) {
   const defaultActivities: Activity[] = [
-    {
-      id: "1",
-      type: "complaint",
-      title: "Faire preuve d'empathie",
-      description: "Le concierge a résolu une plainte pour bruit dans la Chambre 204.",
-      time: "10:45",
-    },
-    {
-      id: "2",
-      type: "request",
-      title: "Demande de café",
-      description: "La Chambre 305 a demandé un service de café artisanal.",
-      time: "09:12",
-    },
+    { id: "1", type: "complaint", title: "Plainte résolue", description: "Concierge a résolu une plainte pour bruit — Ch. 204.", time: "10:45" },
+    { id: "2", type: "request", title: "Demande de café", description: "La Ch. 305 a demandé un service de café.", time: "09:12" },
   ]
 
-  const activityList = activities || defaultActivities
+  const list = activities && activities.length > 0 ? activities : defaultActivities
 
-  const getActivityColor = (type: Activity["type"]) => {
-    switch (type) {
-      case "complaint":
-        return "border-primary bg-primary ring-4 ring-primary/10"
-      case "request":
-        return "border-emerald-600 bg-emerald-600 ring-4 ring-emerald-600/10"
-      default:
-        return "border-muted bg-muted ring-4 ring-muted/10"
-    }
-  }
-
-  const getActivityLineColor = (type: Activity["type"]) => {
-    switch (type) {
-      case "complaint":
-        return "bg-primary/20"
-      case "request":
-        return "bg-emerald-600/20"
-      default:
-        return "bg-muted/20"
-    }
-  }
+  const dotColor = (type: Activity["type"]) =>
+    type === "complaint"
+      ? "bg-destructive"
+      : type === "request"
+        ? "bg-primary"
+        : "bg-muted-foreground"
 
   return (
-    <div className="bg-card rounded-xl p-6 space-y-4 border border-border shadow-sm">
-      <div className="flex justify-between items-center">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
-          Activités récentes
-        </h3>
-        <button className="text-muted-foreground hover:text-foreground transition-colors">
-          <HugeiconsIcon icon={FilterIcon} size={16} />
+    <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          Activité récente
+        </p>
+        <button className="inline-flex size-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+          <SlidersHorizontal className="size-3.5" strokeWidth={1.75} />
         </button>
       </div>
 
-      <div className="space-y-6">
-        {activityList.map((activity, index) => {
-          const isLast = index === activityList.length - 1
-
+      <ul className="space-y-4">
+        {list.map((activity, index) => {
+          const isLast = index === list.length - 1
           return (
-            <div key={activity.id} className="flex gap-4 relative">
+            <li key={activity.id} className="relative flex gap-3">
               {!isLast && (
-                <div className={`absolute left-2 top-6 w-0.5 h-12 ${getActivityLineColor(activity.type)}`} />
+                <span
+                  aria-hidden
+                  className="absolute left-[5px] top-3 h-full w-px bg-border/80"
+                />
               )}
-              <div className={`z-10 w-4 h-4 rounded-full border-2 ${getActivityColor(activity.type)}`} />
-              <div className="flex-1 -mt-1">
-                <div className="flex justify-between">
-                  <p className="text-xs font-bold uppercase text-muted-foreground">
+              <span
+                className={`relative z-10 mt-1.5 size-2.5 shrink-0 rounded-full ring-4 ring-background ${dotColor(
+                  activity.type
+                )}`}
+              />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline justify-between gap-2">
+                  <p className="truncate text-[12.5px] font-medium text-foreground">
                     {activity.title}
                   </p>
-                  <span className="text-[10px] text-muted-foreground">{activity.time}</span>
+                  <span className="shrink-0 text-[10.5px] text-muted-foreground tabular-nums">
+                    {activity.time}
+                  </span>
                 </div>
-                <p className="text-sm mt-1">{activity.description}</p>
+                <p className="mt-0.5 text-[12px] text-muted-foreground">
+                  {activity.description}
+                </p>
               </div>
-            </div>
+            </li>
           )
         })}
-      </div>
+      </ul>
     </div>
   )
 }
